@@ -19,5 +19,19 @@
 *.tar.gz
 *.rar
 
+# Personal settings
+.idea/*
+local.properties
+
+# Gradle files
+.gradle/
+build/
+
+# Java class files
+*.class
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*

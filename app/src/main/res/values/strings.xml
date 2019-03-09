@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">asilo</string>
+    <string name="login">Login</string>
+    <string name="loginID">Email</string>
+    <string name="registerOnLogin">No account? Register here!</string>
+    <string name="password">Password</string>
+    <string name="forgotPassword">Forgot password?</string>
+</resources>
