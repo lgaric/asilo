@@ -1,8 +1,31 @@
 <resources>
     <string name="app_name">asilo</string>
+
+    <!-- Login -->
     <string name="login">Login</string>
-    <string name="loginID">Email</string>
+    <string name="email">Email</string>
     <string name="registerOnLogin">No account? Register here!</string>
     <string name="password">Password</string>
     <string name="forgotPassword">Forgot password?</string>
+
+    <!-- Error messages -->
+    <string name="noInternetConnectionMessage">Check your internet connection.</string>
+    <string name="emailLoginError">Incorrect email!</string>
+    <string name="passwordLoginError">Incorrect password!</string>
+    <string name="userNotFoundError">User does not exist. Please register!</string>
+    <string name="defaultErrorMessage">Unexpected error occurred!</string>
+    <string name="emailError">Email is incorrect!</string>
+    <string name="pwRecoveryFail">Unexpected error occurred, check typed email!</string>
+    <string name="emailNotVerified">Please verify your email address first.</string>
+    <string name="fillAllFields">Please fill all fields!</string>
+    <string name="pleaseInsertEmail">Please, enter your e-mail!</string>
+
+    <!-- Common -->
+    <string name="back">Back</string>
+    <string name="send">Send</string>
+
+
+    <string name="pwRecoverySuccess">Password recovery link has been sent. Check your email!</string>
+
+
 </resources>

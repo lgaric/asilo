@@ -31,12 +31,12 @@
 
         <EditText
             style="@style/EditTextLogin"
-            android:id="@+id/usernameLogin"
-            android:hint="@string/loginID" />
+            android:id="@+id/mUsernameLogin"
+            android:hint="@string/email" />
 
         <EditText
             style="@style/EditTextLogin"
-            android:id="@+id/passwordLogin"
+            android:id="@+id/mPasswordLogin"
             android:hint="@string/password"
             android:inputType="textPassword" />
 
@@ -72,8 +72,8 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/buttonLogin"
-            style="@style/ButtonLightBlue"
+            android:id="@+id/btnLogin"
+            style="@style/ButtonLight"
             android:text="@string/login"
             android:onClick="login"/>
 
