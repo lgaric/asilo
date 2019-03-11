@@ -81,7 +81,7 @@
             android:id="@+id/buttonLoginRegistration"
             style="@style/TextViewPrimaryDark"
             android:text="@string/registerOnLogin"
-            android:onClick="showRegister"/>
+            android:onClick="showRegistration"/>
     </LinearLayout>
 
 </RelativeLayout>
