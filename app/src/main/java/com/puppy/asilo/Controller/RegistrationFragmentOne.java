@@ -11,9 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.puppy.asilo.Model.User;
 import com.puppy.asilo.R;
 
-public class RegistrationFragmentOne extends Fragment {
+public class RegistrationFragmentOne extends Fragment implements View.OnClickListener {
 
     /**
      * Variables.
@@ -36,24 +37,29 @@ public class RegistrationFragmentOne extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.registration_fragment_one, container,false);
+        View currentView = inflater.inflate(R.layout.registration_fragment_one, container,false);
 
          /**
-          * Connecting variables with the UI elements.
+          * Connecting variables with the XML (UI elements).
           * */
 
-        etRegName = (EditText) v.findViewById(R.id.etRegName);
-        etRegSName = (EditText) v.findViewById(R.id.etRegSName);
-        etRegEmail = (EditText) v.findViewById(R.id.etRegEmail);
-        etRegPass = (EditText) v.findViewById(R.id.etRegPass);
-        etRegPassAgain = (EditText) v.findViewById(R.id.etRegPassAgain);
-        etRegPhone = (EditText) v.findViewById(R.id.etRegPhone);
-        btnRegNext = (Button) v.findViewById(R.id.btnRegNext);
+        etRegName = (EditText) currentView.findViewById(R.id.etRegName);
+        etRegSName = (EditText) currentView.findViewById(R.id.etRegSName);
+        etRegEmail = (EditText) currentView.findViewById(R.id.etRegEmail);
+        etRegPass = (EditText) currentView.findViewById(R.id.etRegPass);
+        etRegPassAgain = (EditText) currentView.findViewById(R.id.etRegPassAgain);
+        etRegPhone = (EditText) currentView.findViewById(R.id.etRegPhone);
+        btnRegNext = (Button) currentView.findViewById(R.id.btnRegNext);
 
-        btnRegNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnRegNext.setOnClickListener(this);
 
+        return currentView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnRegNext:
                 /**
                  * User is an entity class. Defined in User.java file.
                  * It is used for easier data transfer between activities
@@ -62,17 +68,14 @@ public class RegistrationFragmentOne extends Fragment {
                  * */
 
                 User userData = new User();
-                userData.setName(etRegName.getText());
-                userData.setSurname(etRegSName.getText());
-                userData.setEmail(etRegEmail.getText());
-                userData.setPassword(etRegPass.getText());
-                userData.setPhone(etRegPhone.getText());
+                userData.setmFirstName(etRegName.getText().toString());
+                userData.setmLastName(etRegSName.getText().toString());
+                userData.setmEmail(etRegEmail.getText().toString());
+                userData.setmPassword(etRegPass.getText().toString());
+                userData.setmPhone(etRegPhone.getText().toString());
 
                 listener.sendDataToRegActivity(userData);
-
-            }
-        });
-        return v;
+        }
     }
 
     @Override

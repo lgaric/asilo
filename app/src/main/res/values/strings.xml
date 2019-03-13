@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">asilo</string>
 
+    <!-- Registration -->
+    <string name="emailEmpty">Please fill out the E-mail field!</string>
+
     <!-- Login -->
     <string name="login">Login</string>
     <string name="email">Email</string>

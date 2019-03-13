@@ -6,11 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
+import com.puppy.asilo.Model.User;
 import com.puppy.asilo.R;
 
-public class RegistrationActivity extends AppCompatActivity implements RegistrationFragmentOne.RegFragmentOneListener {
+public class RegistrationActivity extends AppCompatActivity implements RegistrationFragmentOne.RegFragmentOneListener,
+        RegistrationFragmentTwo.RegFragmentTwoListener, RegistrationFragmentThree.RegFragmentThreeListener {
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
@@ -30,7 +31,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
          *  fragment -> RegistrationFragmentOne, otherwise the
          *  activity would be empty.
          * */
-        changeFragment();
+        changeFragment(null);
     }
 
     /**
@@ -41,7 +42,11 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     @Override
     public void sendDataToRegActivity(User userData) {
         tempUser = userData;
-        changeFragment();
+
+        Bundle userDataBundle = new Bundle();
+        userDataBundle.putSerializable("USER_DATA", userData);
+
+        changeFragment(userDataBundle);
     }
 
     /**
@@ -50,14 +55,20 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
      * and acts accordingly. If there are no active fragments it
      * initialises the RegistrationFragmentOne.
      * */
-    private void changeFragment(){
+    private void changeFragment(Bundle userDataBundle){
         currentActiveFragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
 
         if(currentActiveFragment instanceof RegistrationFragmentOne){
             newActiveFragment = new RegistrationFragmentTwo();
+            newActiveFragment.setArguments(userDataBundle);
+        }
+        else if(currentActiveFragment instanceof  RegistrationFragmentTwo){
+            newActiveFragment = new RegistrationFragmentThree();
+            newActiveFragment.setArguments(userDataBundle);
         }
         else{
             newActiveFragment = new RegistrationFragmentOne();
+            newActiveFragment.setArguments(userDataBundle);
         }
 
         fragmentTransaction = fragmentManager.beginTransaction();
