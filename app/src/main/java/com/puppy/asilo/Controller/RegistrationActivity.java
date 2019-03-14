@@ -17,12 +17,23 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     FragmentTransaction fragmentTransaction;
 
     public User tempUser = new User();
+
+    /**
+     * Fragments currentActiveFragment and newActiveFragment
+     * are being used for exchange of fragments inside the
+     * activity.
+     * */
     private Fragment currentActiveFragment;
     private Fragment newActiveFragment;
+
+    private Fragment regFragmentOne;
+    private Fragment regFragmentTwo;
+    private Fragment regFragmentThree;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.registration_activity);
 
         fragmentManager=getSupportFragmentManager();
@@ -55,23 +66,28 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
      * and acts accordingly. If there are no active fragments it
      * initialises the RegistrationFragmentOne.
      * */
+
     private void changeFragment(Bundle userDataBundle){
+        fragmentTransaction = fragmentManager.beginTransaction();
         currentActiveFragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
 
         if(currentActiveFragment instanceof RegistrationFragmentOne){
-            newActiveFragment = new RegistrationFragmentTwo();
+            fragmentTransaction.hide(regFragmentOne);
+            regFragmentTwo = new RegistrationFragmentTwo();
+            newActiveFragment = regFragmentTwo;
             newActiveFragment.setArguments(userDataBundle);
         }
         else if(currentActiveFragment instanceof  RegistrationFragmentTwo){
-            newActiveFragment = new RegistrationFragmentThree();
+            fragmentTransaction.hide(regFragmentTwo);
+            regFragmentThree = new RegistrationFragmentThree();
+            newActiveFragment = regFragmentThree;
             newActiveFragment.setArguments(userDataBundle);
         }
         else{
-            newActiveFragment = new RegistrationFragmentOne();
-            newActiveFragment.setArguments(userDataBundle);
+            regFragmentOne= new RegistrationFragmentOne();
+            newActiveFragment = regFragmentOne;
         }
 
-        fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentContainer, newActiveFragment);
         fragmentTransaction.commit();
     }
@@ -91,6 +107,12 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             this.finish();
         }
         else{
+            if(currentActiveFragment instanceof  RegistrationFragmentTwo){
+                fragmentTransaction.show(regFragmentOne);
+            }
+            else if(currentActiveFragment instanceof  RegistrationFragmentThree){
+                fragmentTransaction.show(regFragmentTwo);
+            }
             fragmentTransaction.remove(currentActiveFragment);
             fragmentTransaction.commit();
         }

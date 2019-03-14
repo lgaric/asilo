@@ -123,7 +123,7 @@ public class User implements Serializable {
 
     public Boolean getmDogPerson() {return mDogPerson;}
 
-    public void setmDogPerson(Boolean mCatPerson) {this.mDogPerson = mDogPerson;}
+    public void setmDogPerson(Boolean mDogPerson) {this.mDogPerson = mDogPerson;}
 
     public Boolean getmCatPerson() {return mCatPerson;}
 

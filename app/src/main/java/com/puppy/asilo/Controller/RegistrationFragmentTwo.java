@@ -66,6 +66,8 @@ public class RegistrationFragmentTwo extends Fragment implements View.OnClickLis
         btnRegNext2 = (Button) currentView.findViewById(R.id.btnRegNext2);
 
         btnRegNext2.setOnClickListener(this);
+        btnRegCat.setOnClickListener(this);
+        btnRegDog.setOnClickListener(this);
 
         return currentView;
     }
@@ -102,10 +104,6 @@ public class RegistrationFragmentTwo extends Fragment implements View.OnClickLis
                 checkCheckBoxs();
                 listener.sendDataToRegActivity(userData);
                 break;
-
-            /**
-             * Temp solution for testing. <---- !!!!
-             * */
             case R.id.btnRegDog:
                 userData.setmDogPerson(true);
                 userData.setmCatPerson(false);
