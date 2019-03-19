@@ -3,6 +3,7 @@ package com.puppy.asilo.Controller;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,26 +13,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import android.widget.Toast;
+import com.puppy.asilo.FirebaseHelper.Listeners.RegistrationListener;
+import com.puppy.asilo.FirebaseHelper.RegistrationHelper;
 import com.puppy.asilo.Model.User;
 import com.puppy.asilo.R;
 
-public class RegistrationFragmentThree extends Fragment implements View.OnClickListener {
+public class RegistrationFragmentThree extends Fragment implements View.OnClickListener, RegistrationListener {
 
     private User userData;
-    private TextView test;
     private Button btnRegRegister;
     private ProgressDialog pdRegUserReg;
 
-    private FirebaseAuth firebaseAuth;
-    private RegistrationFragmentThree.RegFragmentThreeListener listener;
+    private RegistrationHelper mRegistrationHelper;
 
-    public interface RegFragmentThreeListener{
-        void sendDataToRegActivity(User userData);
+    @Override
+    public void onRegistrationFailed(String mMessage) {
+        Toast.makeText(getActivity(), R.string.defaultErrorMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRegistrationSuccess() {
+        Toast.makeText(getActivity(), R.string.registrationComplete, Toast.LENGTH_LONG).show();
     }
 
     @Nullable
@@ -43,18 +46,15 @@ public class RegistrationFragmentThree extends Fragment implements View.OnClickL
          * userData for now contains only the data entered so far.
          * */
         userData = (User) getArguments().getSerializable("USER_DATA");
-
-        test = (TextView) currentView.findViewById(R.id.tvTEST);
         btnRegRegister = (Button) currentView.findViewById(R.id.btnRegRegister);
 
         /**
         Additional objects.
         */
-        firebaseAuth = FirebaseAuth.getInstance();
-        pdRegUserReg = new ProgressDialog(this.getContext());
+        mRegistrationHelper = new RegistrationHelper(this);
+        //pdRegUserReg = new ProgressDialog(this.getContext());
 
         /**FOR TESTS*/
-        test.setText("AAAAA :D");
         btnRegRegister.setOnClickListener(this);
 
         return currentView;
@@ -68,25 +68,11 @@ public class RegistrationFragmentThree extends Fragment implements View.OnClickL
         pdRegUserReg.setMessage("Registracija u tijeku, pricekajte trenutak ...");
         pdRegUserReg.show();
 
-        firebaseAuth.createUserWithEmailAndPassword(userData.getmEmail(), userData.getmPassword())
-                .addOnCompleteListener((Activity) getContext(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        pdRegUserReg.dismiss();
-                        if(task.isSuccessful()){
-                            test.setText("DA");
-                        }
-                        else{
-                            test.setText("NE");
-                        }
-                    }
-                });
+
 
         /**
          * Change activity, last step of the registration.
-         * *//*
-        startActivity(new Intent(this,LoginActivity.class));
-        this.finish();*/
+         * */
     }
 
     @Override
@@ -97,16 +83,12 @@ public class RegistrationFragmentThree extends Fragment implements View.OnClickL
         }
 
     }
-
+/*
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        /**
-         * Check if the RegistrationActivity implements the interface.
-         * If it doesn't throw an exception, good practise.
-         * */
-        if(context instanceof RegistrationFragmentThree.RegFragmentThreeListener){
-            listener = (RegistrationFragmentThree.RegFragmentThreeListener) context;
+        if(context instanceof RegistrationFragmentThree){
+             = (RegistrationFragmentThree.RegFragmentThreeListener) context;
         }
         else{
             throw new RuntimeException(context.toString()
@@ -116,11 +98,7 @@ public class RegistrationFragmentThree extends Fragment implements View.OnClickL
 
     @Override
     public void onDetach() {
-        /**
-         * When you remove this fragment set the listener to null.
-         * In other words reset the listener.
-         * */
         listener = null;
         super.onDetach();
-    }
+    }*/
 }

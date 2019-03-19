@@ -3,6 +3,10 @@
 
     <!-- Registration -->
     <string name="emailEmpty">Please fill out the E-mail field!</string>
+    <string name="registrationComplete">You have registered successfully!</string>
+    <string name="registrationFailed">Registration failed!</string>
+    <string name="emailInUse">E-mail is already in use!</string>
+
 
     <!-- Login -->
     <string name="login">Login</string>

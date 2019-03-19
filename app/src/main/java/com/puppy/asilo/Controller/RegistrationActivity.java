@@ -7,11 +7,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.puppy.asilo.FirebaseHelper.Listeners.RegistrationListener;
 import com.puppy.asilo.Model.User;
 import com.puppy.asilo.R;
 
-public class RegistrationActivity extends AppCompatActivity implements RegistrationFragmentOne.RegFragmentOneListener,
-        RegistrationFragmentTwo.RegFragmentTwoListener, RegistrationFragmentThree.RegFragmentThreeListener {
+public class RegistrationActivity extends AppCompatActivity implements RegistrationListener {
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
@@ -116,5 +116,16 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             fragmentTransaction.remove(currentActiveFragment);
             fragmentTransaction.commit();
         }
+    }
+
+    @Override
+    public void onRegistrationFailed(String mMessage) {
+
+    }
+
+    @Override
+    public void onRegistrationSuccess() {
+        startActivity(new Intent(this, MainActivity.class));
+        this.finish();
     }
 }

@@ -77,14 +77,10 @@ public class RegistrationFragmentOne extends Fragment implements View.OnClickLis
                 listener.sendDataToRegActivity(userData);
         }
     }
-
+/*
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        /**
-         * Check if the RegistrationActivity implements the interface.
-         * If it doesn't throw an exception, good practise.
-         * */
         if(context instanceof RegFragmentOneListener){
             listener = (RegFragmentOneListener) context;
         }
@@ -96,11 +92,7 @@ public class RegistrationFragmentOne extends Fragment implements View.OnClickLis
 
     @Override
     public void onDetach() {
-        /**
-         * When you remove this fragment set the listener to null.
-         * In other words reset the listener.
-         * */
         listener = null;
         super.onDetach();
-    }
+    }*/
 }

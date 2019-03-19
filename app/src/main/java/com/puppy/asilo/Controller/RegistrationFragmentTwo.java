@@ -118,10 +118,6 @@ public class RegistrationFragmentTwo extends Fragment implements View.OnClickLis
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        /**
-         * Check if the RegistrationActivity implements the interface.
-         * If it doesn't throw an exception, good practise.
-         * */
         if(context instanceof RegFragmentTwoListener){
             listener = (RegFragmentTwoListener) context;
         }
@@ -133,10 +129,6 @@ public class RegistrationFragmentTwo extends Fragment implements View.OnClickLis
 
     @Override
     public void onDetach() {
-        /**
-         * When you remove this fragment set the listener to null.
-         * In other words reset the listener.
-         * */
         listener = null;
         super.onDetach();
     }
