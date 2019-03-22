@@ -1,16 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragmentContainer" >
-    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/buttons"
+        style="@style/WrapHeightMatchWidth"
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
 
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/buttonBackToLogin"
+            style="@style/ButtonLight.White"
+            android:layout_weight="1"
+            android:text="@string/back" />
+
+        <Button
+            android:id="@+id/buttonRegister"
+            style="@style/ButtonLight.White"
+            android:layout_weight="1"
+            android:text="@string/register" />
+
+    </LinearLayout>
+
+    <ScrollView
+        style="@style/MatchBoth"
+        android:layout_above="@+id/buttons"
+        android:layout_margin="10dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            style="@style/WrapHeightMatchWidth"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/firstnameRegistration"
+                style="@style/EditTextWhite"
+                android:hint="@string/firstName"/>
+
+            <EditText
+                android:id="@+id/lastnameRegistration"
+                android:hint="@string/lastName"
+                style="@style/EditTextWhite" />
+
+
+            <EditText
+                android:id="@+id/passwordRegistration"
+                style="@style/EditTextWhite"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/repeatPasswordRegistration"
+                style="@style/EditTextWhite"
+                android:hint="@string/repeatPassword"
+                android:inputType="textPassword" />
+
+
+            <EditText
+                android:id="@+id/emailRegistration"
+                style="@style/EditTextWhite"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"/>
+
+            <EditText
+                android:id="@+id/addressRegistration"
+                style="@style/EditTextWhite"
+                android:hint="@string/address" />
+            
+
+            <EditText
+                android:id="@+id/contactRegistration"
+                style="@style/EditTextWhite"
+                android:hint="@string/contact"
+                android:inputType="number"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"></View>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

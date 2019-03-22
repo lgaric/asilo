@@ -3,6 +3,20 @@
 
     <!-- Registration -->
     <string name="emailEmpty">Please fill out the E-mail field!</string>
+    <string name="checkInputMessage">Please fill all data correctly!</string>
+    <string name="registrationSuccess">Registration successful. Confirmation email has been sent!</string>
+    <string name="registrationFail">Unexpected error while registering!</string>
+    <string name="emailInUse">Account with that email address already exists. Login?</string>
+    <string name="usernameInUse">Username already exists.</string>
+    <string name="obligatory">Obligatory!</string>
+    <string name="register">Register!</string>
+
+    <!-- Registration.UserData -->
+    <string name="contact">Contact</string>
+    <string name="address">Address</string>
+    <string name="repeatPassword">Repeat password</string>
+    <string name="firstName">First name</string>
+    <string name="lastName">Last name</string>
 
     <!-- Login -->
     <string name="login">Login</string>
@@ -22,6 +36,8 @@
     <string name="emailNotVerified">Please verify your email address first.</string>
     <string name="fillAllFields">Please fill all fields!</string>
     <string name="pleaseInsertEmail">Please, enter your e-mail!</string>
+    <string name="passwordError">Minimum 6 letters and one special character!</string>
+    <string name="retypedPasswordError">Password do not match!</string>
 
     <!-- Common -->
     <string name="back">Back</string>
