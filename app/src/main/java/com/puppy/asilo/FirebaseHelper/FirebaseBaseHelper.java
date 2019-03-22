@@ -13,19 +13,10 @@ import com.puppy.asilo.R;
 
 public class FirebaseBaseHelper {
     //Firebase tablice
-    protected static final String SHELTERNODE  = "Shelter";
-    protected static final String TAGNODE  = "Tag";
-    protected static final String NEWSTAGNODE  = "NewsTag";
-    protected static final String NEWSNODE = "News";
-    protected static final String DONATIONNODE  = "Donation";
-    protected static final String USERTYPENODE  = "UserType";
-    protected static final String USERNODE = "User";
-    protected static final String USERHELPTYPENODE = "UserHelpType";
-    protected static final String HELPTYPENODE = "HelpType";
-    protected static final String FOLLOWNODE = "Follow";
-    protected static final String ANIMALNODE = "Animal";
-    protected static final String ADOPTIONREQUESTNODE = "AdoptionRequest";
-    protected static final String ANIMALTYPENODE = "AnimalType";
+    protected static final String SHELTER_NODE = "Shelter";
+    protected static final String DONATION_NODE = "Donation";
+    protected static final String USER_NODE = "User";
+    protected static final String ANIMAL_NODE = "Animal";
 
 
     //Firebase varijable

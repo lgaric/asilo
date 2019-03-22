@@ -93,7 +93,7 @@ public class LoginHelper extends FirebaseBaseHelper{
     private void getUserInformation(String mUserUID){
 
         if(isNetworkAvailable()) {
-            mReference = mDatabase.getReference().child(USERNODE).child(mUserUID);
+            mReference = mDatabase.getReference().child(USER_NODE).child(mUserUID);
 
             mReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

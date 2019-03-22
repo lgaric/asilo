@@ -22,6 +22,7 @@
 # Personal settings
 .idea/*
 local.properties
+*.iml
 
 # Gradle files
 .gradle/

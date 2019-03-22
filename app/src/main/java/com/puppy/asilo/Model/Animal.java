@@ -3,16 +3,19 @@ package com.puppy.asilo.Model;
 public class Animal {
     private String mAnimalID;
     private String mShelterID;
-    private String mAnimalTypeID;
+    private String mAnimalType;
     private String mName;
     private String mSex;
     private String mAge;
     private String mSize;
-    private String mCareLevel;
-    private String mVaccinated;
+    private String mVaccinesTaken;
+    private String mWeight;
     private String mCastrated;
     private String mArrivalDate;
     private String mAdopted;
+    private String mHasChip;
+    private String mDescription;
+
 
     public String getmAnimalID() {
         return mAnimalID;
@@ -30,12 +33,12 @@ public class Animal {
         this.mShelterID = mShelterID;
     }
 
-    public String getmAnimalTypeID() {
-        return mAnimalTypeID;
+    public String getmAnimalType() {
+        return mAnimalType;
     }
 
-    public void setmAnimalTypeID(String mAnimalTypeID) {
-        this.mAnimalTypeID = mAnimalTypeID;
+    public void setmAnimalType(String mAnimalType) {
+        this.mAnimalType = mAnimalType;
     }
 
     public String getmName() {
@@ -70,20 +73,20 @@ public class Animal {
         this.mSize = mSize;
     }
 
-    public String getmCareLevel() {
-        return mCareLevel;
+    public String getmVaccinesTaken() {
+        return mVaccinesTaken;
     }
 
-    public void setmCareLevel(String mCareLevel) {
-        this.mCareLevel = mCareLevel;
+    public void setmVaccinesTaken(String mVaccinesTaken) {
+        this.mVaccinesTaken = mVaccinesTaken;
     }
 
-    public String getmVaccinated() {
-        return mVaccinated;
+    public String getmWeight() {
+        return mWeight;
     }
 
-    public void setmVaccinated(String mVaccinated) {
-        this.mVaccinated = mVaccinated;
+    public void setmWeight(String mWeight) {
+        this.mWeight = mWeight;
     }
 
     public String getmCastrated() {
@@ -108,5 +111,21 @@ public class Animal {
 
     public void setmAdopted(String mAdopted) {
         this.mAdopted = mAdopted;
+    }
+
+    public String getmHasChip() {
+        return mHasChip;
+    }
+
+    public void setmHasChip(String mHasChip) {
+        this.mHasChip = mHasChip;
+    }
+
+    public String getmDescription() {
+        return mDescription;
+    }
+
+    public void setmDescription(String mDescription) {
+        this.mDescription = mDescription;
     }
 }
