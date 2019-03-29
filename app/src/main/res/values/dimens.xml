@@ -22,5 +22,6 @@
     <dimen name="one">1</dimen>
 
     <integer name="animation_duration">300</integer>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>
