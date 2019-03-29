@@ -40,5 +40,12 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!-- android drawer items -->
+    <string name="nove_objave">New post</string>
+    <string name="prethodne_objave">Previous posts</string>
+    <string name="prijavite_gresku">Report a something</string>
+    <string name="donirajte">Donate to shelters</string>
+    <string name="odjava">Log out</string>
+    <string name="donji_dio">_____</string>
 
 </resources>
