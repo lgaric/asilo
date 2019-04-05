@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private TextView mDateOfBirth, mCities;
     private EditText mEmail, mPassword, mFirstName, mLastName, mAddress, mPhone, mRetypedPassword;
     private Button btnRegister, btnBackToLogin;
+    private ProgressBar mProgressSpinner;
 
     private RegistrationHelper mRegistrationHelper;
 
@@ -30,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
      * Inicijalizacija
      * @param savedInstanceState
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,22 +50,39 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         mEmail =  findViewById(R.id.emailRegistration);
         mAddress = findViewById(R.id.addressRegistration);
         mPhone = findViewById(R.id.contactRegistration);
-        // I ostali atributi!
 
-
+        mProgressSpinner = findViewById(R.id.progressBarRegistration);
+        mProgressSpinner.setVisibility(View.GONE);
 
         btnRegister =  findViewById(R.id.buttonRegister);
         btnBackToLogin =  findViewById(R.id.buttonBackToLogin);
 
-        /*
+        /**
+         * Listeneri za registracijsku formu.
+         * */
+
         mFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
+                    if(mFirstName.getText().toString().trim().length() <= 0){
+                        mFirstName.setError(getResources().getString(R.string.required));
+                    }
                 }
             }
         });
-        */
+
+        mLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(mLastName.getText().toString().trim().length() <= 0){
+                        mLastName.setError(getResources().getString(R.string.required));
+                    }
+                }
+            }
+        });
+
 
         mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -75,7 +95,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                         }
                     }
                     else {
-                        mEmail.setError(getResources().getString(R.string.obligatory));
+                        mEmail.setError(getResources().getString(R.string.required));
                     }
                 }
             }
@@ -91,7 +111,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                         if (!validationSuccess)
                             mPassword.setError(getResources().getString(R.string.passwordError));
                     } else {
-                        mPassword.setError(getResources().getString(R.string.obligatory));
+                        mPassword.setError(getResources().getString(R.string.required));
                     }
                 }
             }
@@ -108,16 +128,38 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                         }
                     }
                     else{
-                        mRetypedPassword.setError(getResources().getString(R.string.obligatory));
+                        mRetypedPassword.setError(getResources().getString(R.string.required));
                     }
                 }
             }
         });
 
+        mAddress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(mAddress.getText().toString().trim().length() <= 0){
+                        mAddress.setError(getResources().getString(R.string.required));
+                    }
+                }
+            }
+        });
+
+        mPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(mPhone.getText().toString().trim().length() <= 0){
+                        mPhone.setError(getResources().getString(R.string.required));
+                    }
+                }
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgressSpinner.setVisibility(View.VISIBLE);
                 mRegistrationHelper.registerUser(createUser(), mRetypedPassword.getText().toString().trim());
             }
         });
@@ -180,6 +222,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
      */
     @Override
     public void onRegistrationSuccess(String mMessage) {
+        mProgressSpinner.setVisibility(View.GONE);
         showLogin();
         showToastRegistration(mMessage);
     }
@@ -190,6 +233,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
      */
     @Override
     public void onRegistrationFail(String mMessage) {
+        mProgressSpinner.setVisibility(View.GONE);
         showToastRegistration(mMessage);
     }
 

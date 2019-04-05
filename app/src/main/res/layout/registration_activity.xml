@@ -70,7 +70,7 @@
                 android:id="@+id/addressRegistration"
                 style="@style/EditTextWhite"
                 android:hint="@string/address" />
-            
+
 
             <EditText
                 android:id="@+id/contactRegistration"
@@ -81,6 +81,13 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp"></View>
+
+            <ProgressBar
+                android:id="@+id/progressBarRegistration"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true" />
 
         </LinearLayout>
 

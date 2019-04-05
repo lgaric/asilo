@@ -8,7 +8,7 @@
     <string name="registrationFail">Unexpected error while registering!</string>
     <string name="emailInUse">Account with that email address already exists. Login?</string>
     <string name="usernameInUse">Username already exists.</string>
-    <string name="obligatory">Obligatory!</string>
+    <string name="required">Required!</string>
     <string name="register">Register!</string>
 
     <!-- Registration.UserData -->

@@ -35,10 +35,12 @@ public class RegistrationHelper extends FirebaseBaseHelper{
      * Registriraj korisnika
      * @param mNewUser
      */
+
     public void registration(User mNewUser){
         final User user = mNewUser;
 
         if(isNetworkAvailable()) {
+            mQuery = mDatabase.getReference().child("User").orderByChild("email").equalTo(user.getmEmail());
             mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -80,6 +82,7 @@ public class RegistrationHelper extends FirebaseBaseHelper{
      * @param mNewUser
      * @param mRetypedPassword
      */
+
     public void registerUser(User mNewUser, String mRetypedPassword) {
         if (InputCorrect(mNewUser, mRetypedPassword)) {
             registration(mNewUser);
