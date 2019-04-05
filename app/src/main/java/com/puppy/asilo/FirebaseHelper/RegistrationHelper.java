@@ -2,6 +2,8 @@ package com.puppy.asilo.FirebaseHelper;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.util.Patterns;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -13,6 +15,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.puppy.asilo.FirebaseHelper.Listeners.RegistrationListener;
 import com.puppy.asilo.Model.User;
 import com.puppy.asilo.R;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegistrationHelper extends FirebaseBaseHelper{
     private RegistrationListener mRegistrationListener;
@@ -58,7 +63,6 @@ public class RegistrationHelper extends FirebaseBaseHelper{
                             }
                         });
                     }
-
                 }
 
                 @Override
@@ -77,10 +81,40 @@ public class RegistrationHelper extends FirebaseBaseHelper{
      * @param mRetypedPassword
      */
     public void registerUser(User mNewUser, String mRetypedPassword) {
-        if (InputCorrect(mNewUser, mRetypedPassword))
+        if (InputCorrect(mNewUser, mRetypedPassword)) {
             registration(mNewUser);
-        else
+        }
+        else{
             mRegistrationListener.onRegistrationFail(mContext.getResources().getString(R.string.checkInputMessage));
+        }
+    }
+
+    /**
+     * Metode za validaciju unosa.
+     * */
+
+    public boolean validateEmail(String email){
+        return(!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    }
+
+    public boolean validatePassword(String password){
+        Pattern pattern;
+        Matcher matcher;
+
+        /*
+          Regexp: Mora sadržavati barem jedan broj, jedno veliko
+          te jedno malo slovo. Sveukupno pass mora imati 8 znakova
+          minimalno.
+          */
+
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
+    public boolean validateRetypedPassword(String password, String retypedPassword){
+        return (password.equals(retypedPassword));
     }
 
     /**
@@ -89,14 +123,16 @@ public class RegistrationHelper extends FirebaseBaseHelper{
      * @param mRetypedPassword
      * @return
      */
+
     private boolean InputCorrect(User mNewUser, String mRetypedPassword){
         if(mNewUser.getmFirstName().length() > 0 && mNewUser.getmLastName().length() > 0 &&
-                mNewUser.getmAddress().length() > 0 && mNewUser.getmCounty().length() > 0 &&
-                mNewUser.getmPhone().length() > 0/* && validateEmail(mNewUser.getmEmail())
-                && validatePassword(mNewUser.getPassword()) && validateRetypedPassword(mNewUser.getPassword(), mRetypedPassword)*/)
+                mNewUser.getmAddress().length() > 0 &&
+                mNewUser.getmPhone().length() > 0 && validateEmail(mNewUser.getmEmail())
+                && validatePassword(mNewUser.getmPassword()) && validateRetypedPassword(mNewUser.getmPassword(), mRetypedPassword))
             return true;
         else
             return false;
     }
+
 
 }

@@ -34,6 +34,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_activity);
+
         //getSupportActionBar().setTitle(R.string.register); // Ako hoces staviti ActionBar na registraciju!
 
         mRegistrationHelper = new RegistrationHelper(this);
@@ -53,14 +54,22 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         btnRegister =  findViewById(R.id.buttonRegister);
         btnBackToLogin =  findViewById(R.id.buttonBackToLogin);
 
-
+        /*
+        mFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                }
+            }
+        });
+        */
 
         mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
                     if(mEmail.getText().toString().trim().length() > 0){
-                        boolean validationSuccess = validateEmail(mEmail.getText().toString().trim());
+                        boolean validationSuccess = mRegistrationHelper.validateEmail(mEmail.getText().toString().trim());
                         if(!validationSuccess){
                             mEmail.setError(getResources().getString(R.string.emailError));
                         }
@@ -78,7 +87,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
                     if (mPassword.getText().toString().trim().length() > 0) {
-                        boolean validationSuccess = validatePassword(mPassword.getText().toString().trim());
+                        boolean validationSuccess = mRegistrationHelper.validatePassword(mPassword.getText().toString().trim());
                         if (!validationSuccess)
                             mPassword.setError(getResources().getString(R.string.passwordError));
                     } else {
@@ -93,7 +102,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
                     if(mRetypedPassword.getText().toString().trim().length() > 0){
-                        boolean validationSuccess = validateRetypedPassword(mPassword.getText().toString().trim(), mRetypedPassword.getText().toString().trim());
+                        boolean validationSuccess = mRegistrationHelper.validateRetypedPassword(mPassword.getText().toString().trim(), mRetypedPassword.getText().toString().trim());
                         if(!validationSuccess){
                             mRetypedPassword.setError(getResources().getString(R.string.retypedPasswordError));
                         }
@@ -120,34 +129,6 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             }
         });
 
-    }
-
-    /**
-     * Metode za validaciju unosa.
-     * */
-
-    private boolean validateEmail(String email){
-        return(!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
-    }
-
-    private boolean validatePassword(String password){
-        Pattern pattern;
-        Matcher matcher;
-
-        /*
-          Regexp: Mora sadržavati barem jedan broj, jedno veliko
-          te jedno malo slovo. Sveukupno pass mora imati 8 znakova
-          minimalno.
-          */
-
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-        return matcher.matches();
-    }
-
-    private boolean validateRetypedPassword(String password, String retypedPassword){
-        return (password.equals(retypedPassword));
     }
 
     /**
