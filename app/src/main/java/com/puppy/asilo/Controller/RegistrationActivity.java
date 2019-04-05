@@ -3,6 +3,8 @@ package com.puppy.asilo.Controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,9 @@ import com.puppy.asilo.FirebaseHelper.Listeners.RegistrationListener;
 import com.puppy.asilo.FirebaseHelper.RegistrationHelper;
 import com.puppy.asilo.Model.User;
 import com.puppy.asilo.R;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegistrationActivity extends AppCompatActivity implements RegistrationListener {
     private TextView mDateOfBirth, mCities;
@@ -33,7 +38,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
         mRegistrationHelper = new RegistrationHelper(this);
 
-        /*
+
         mFirstName = findViewById(R.id.firstnameRegistration);
         mLastName = findViewById(R.id.lastnameRegistration);
         mPassword = findViewById(R.id.passwordRegistration);
@@ -47,7 +52,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
         btnRegister =  findViewById(R.id.buttonRegister);
         btnBackToLogin =  findViewById(R.id.buttonBackToLogin);
-        */
+
 
 
         mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -55,23 +60,26 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
                     if(mEmail.getText().toString().trim().length() > 0){
-                        //boolean validationSuccess = validateEmail(mEmail.getText().toString().trim());
-                        /*if(!validationSuccess)*/
+                        boolean validationSuccess = validateEmail(mEmail.getText().toString().trim());
+                        if(!validationSuccess){
                             mEmail.setError(getResources().getString(R.string.emailError));
-                    }else {
+                        }
+                    }
+                    else {
                         mEmail.setError(getResources().getString(R.string.obligatory));
                     }
                 }
             }
         });
 
+
         mPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
                     if (mPassword.getText().toString().trim().length() > 0) {
-                        //boolean validationSuccess = validatePassword(mPassword.getText().toString().trim());
-                        //if (!validationSuccess)
+                        boolean validationSuccess = validatePassword(mPassword.getText().toString().trim());
+                        if (!validationSuccess)
                             mPassword.setError(getResources().getString(R.string.passwordError));
                     } else {
                         mPassword.setError(getResources().getString(R.string.obligatory));
@@ -85,10 +93,12 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
                     if(mRetypedPassword.getText().toString().trim().length() > 0){
-                        //boolean validationSuccess = validateRetypedPassword(mPassword.getText().toString().trim(), mRetypedPassword.getText().toString().trim());
-                        //if(!validationSuccess)
+                        boolean validationSuccess = validateRetypedPassword(mPassword.getText().toString().trim(), mRetypedPassword.getText().toString().trim());
+                        if(!validationSuccess){
                             mRetypedPassword.setError(getResources().getString(R.string.retypedPasswordError));
-                    }else{
+                        }
+                    }
+                    else{
                         mRetypedPassword.setError(getResources().getString(R.string.obligatory));
                     }
                 }
@@ -99,7 +109,6 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 mRegistrationHelper.registerUser(createUser(), mRetypedPassword.getText().toString().trim());
             }
         });
@@ -110,6 +119,46 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                 showLogin();
             }
         });
+
+    }
+
+    /**
+     * Metode za validaciju unosa.
+     * */
+
+    private boolean validateEmail(String email){
+        return(!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    }
+
+    private boolean validatePassword(String password){
+        Pattern pattern;
+        Matcher matcher;
+
+        /*
+          Regexp: Mora sadržavati barem jedan broj, jedno veliko
+          te jedno malo slovo. Sveukupno pass mora imati 8 znakova
+          minimalno.
+          */
+
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
+    private boolean validateRetypedPassword(String password, String retypedPassword){
+        return (password.equals(retypedPassword));
+    }
+
+    /**
+     * U slučaju pritiska standard android "Back" gumba
+     * prikaži LoginActivity. Poboljšava UX navigacije.
+     * */
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        showLogin();
     }
 
     /**

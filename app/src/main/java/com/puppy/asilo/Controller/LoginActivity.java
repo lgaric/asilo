@@ -52,12 +52,17 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     /**
      * Prikazi Activity za registraciju korisnika.
+     * @param view
      */
 
     public void showRegistration(View view){
         startActivity(new Intent(this, RegistrationActivity.class));
         this.finish();
     }
+
+    /**
+     * Adekvatne poruke.
+     * */
 
     @Override
     public void onStatusFailed(String mMessage) {
