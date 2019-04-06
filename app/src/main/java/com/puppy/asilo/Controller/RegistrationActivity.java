@@ -68,6 +68,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
          * Listeneri za registracijsku formu.
          * */
 
+
         mFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

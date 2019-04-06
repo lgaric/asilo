@@ -68,6 +68,11 @@ public class LoginHelper extends FirebaseBaseHelper{
     private String checkErrorCode(String mError){
         String errorMessage;
 
+        // PRIVREMENI "FIX"
+        if(mError == null){
+            mError = "Unexpected error!";
+        }
+
         switch(mError) {
             case "ERROR_INVALID_EMAIL":
                 errorMessage =mContext.getResources().getString(R.string.emailLoginError);
