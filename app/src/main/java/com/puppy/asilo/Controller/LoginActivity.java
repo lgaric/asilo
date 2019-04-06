@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     @Override
     public void onStatusSuccess() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, NavigationDrawerActivity.class));
         this.finish();
     }
 }
