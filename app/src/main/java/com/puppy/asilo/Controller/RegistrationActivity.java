@@ -28,7 +28,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private Button btnRegister, btnBackToLogin;
     private ProgressBar mProgressSpinner;
 
-    private ImageView mUserImage;
+    //private ImageView mUserImage;
     private final int PICK_IMAGE_REQUEST = 71;
     private Uri filePath;
 
@@ -56,7 +56,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         mEmail =  findViewById(R.id.emailRegistration);
         mAddress = findViewById(R.id.addressRegistration);
         mPhone = findViewById(R.id.contactRegistration);
-        mUserImage = findViewById(R.id.userImageRegistration);
+        //mUserImage = findViewById(R.id.userImageRegistration);
 
         mProgressSpinner = findViewById(R.id.progressBarRegistration);
         mProgressSpinner.setVisibility(View.GONE);
@@ -163,12 +163,14 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             }
         });
 
+        /*
         mUserImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseImage();
             }
         });
+        */
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,7 +209,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                mUserImage.setImageBitmap(bitmap);
+                //mUserImage.setImageBitmap(bitmap);
             }
             catch (IOException e)
             {

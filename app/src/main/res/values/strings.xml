@@ -46,6 +46,8 @@
     <!-- Common -->
     <string name="back">Back</string>
     <string name="send">Send</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
     <string name="pwRecoverySuccess">Password recovery link has been sent. Check your email!</string>
@@ -67,5 +69,7 @@
     <string name="donirajte">Donate to shelters</string>
     <string name="odjava">Log out</string>
     <string name="donji_dio">_____</string>
+
+    <string name="logOutQuestion">Are you sure?</string>
 
 </resources>

@@ -22,10 +22,10 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-        getSupportActionBar().hide();
-        //ButterKnife.bind(this);
+//        getSupportActionBar().hide();
         mUsernameLogin = findViewById(R.id.mUsernameLogin);
         mPasswordLogin = findViewById(R.id.mPasswordLogin);
         btnLogin = findViewById(R.id.btnLogin);
