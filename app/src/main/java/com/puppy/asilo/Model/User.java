@@ -13,6 +13,15 @@ public class User implements Serializable {
     private String mPhone;
     private String mAddress;
     private String mCounty;
+    private String mUserImageURI;
+
+    public String getmUserImageURI() {
+        return mUserImageURI;
+    }
+
+    public void setmUserImageURI(String mUserImageURI) {
+        this.mUserImageURI = mUserImageURI;
+    }
 
     public String getmUserID() {
         return mUserID;

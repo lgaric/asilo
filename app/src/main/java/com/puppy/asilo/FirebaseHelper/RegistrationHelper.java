@@ -7,24 +7,20 @@ import android.text.TextUtils;
 import android.util.Patterns;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.UploadTask;
 import com.puppy.asilo.FirebaseHelper.Listeners.RegistrationListener;
 import com.puppy.asilo.Model.User;
 import com.puppy.asilo.R;
 
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegistrationHelper extends FirebaseBaseHelper{
+public class RegistrationHelper extends FirebaseBaseHelper {
     private RegistrationListener mRegistrationListener;
 
     /**
@@ -58,13 +54,21 @@ public class RegistrationHelper extends FirebaseBaseHelper{
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     final String uId = mAuth.getCurrentUser().getUid();
-                                    mDatabase.getReference().child("User").child(uId).setValue(user);
-                                    uploadImage(filePath);
+                                    mDatabase.getReference().child(USER_NODE).child(uId).setValue(user);
+
+                                    try {
+                                        uploadImage(filePath);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+
                                     mAuth.getCurrentUser().sendEmailVerification();
                                     mAuth.signOut();
                                     mRegistrationListener.onRegistrationSuccess(mContext.getResources().getString(R.string.registrationSuccess));
                                 } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                     mRegistrationListener.onRegistrationFail(mContext.getResources().getString(R.string.emailInUse));
+
                                 } else {
                                     mRegistrationListener.onRegistrationFail(mContext.getResources().getString(R.string.registrationFail));
                                 }
@@ -95,35 +99,6 @@ public class RegistrationHelper extends FirebaseBaseHelper{
         }
         else{
             mRegistrationListener.onRegistrationFail(mContext.getResources().getString(R.string.checkInputMessage));
-        }
-    }
-
-    private void uploadImage(Uri filePath) {
-
-        if(filePath != null)
-        {
-            mStorageReference = mStorageReference.child("images/"+ UUID.randomUUID().toString());
-            mStorageReference.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            //Toast.makeText(MainActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            //Toast.makeText(MainActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });/*
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-
-                        }
-                    });*/
         }
     }
 
@@ -171,6 +146,5 @@ public class RegistrationHelper extends FirebaseBaseHelper{
         else
             return false;
     }
-
 
 }

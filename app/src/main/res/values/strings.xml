@@ -25,6 +25,10 @@
     <string name="password">Password</string>
     <string name="forgotPassword">Forgot password?</string>
 
+    <!-- Image Upload -->
+    <string name="imageUploadSuccess">Image has been successfully uploaded!</string>
+    <string name="imageUploadFailure">Image upload has failed!</string>
+
     <!-- Error messages -->
     <string name="noInternetConnectionMessage">Check your internet connection.</string>
     <string name="emailLoginError">Incorrect email!</string>

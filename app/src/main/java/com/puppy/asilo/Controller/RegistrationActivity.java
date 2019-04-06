@@ -6,8 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,16 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.puppy.asilo.FirebaseHelper.Listeners.RegistrationListener;
+
 import com.puppy.asilo.FirebaseHelper.RegistrationHelper;
 import com.puppy.asilo.Model.User;
 import com.puppy.asilo.R;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class RegistrationActivity extends AppCompatActivity implements RegistrationListener {
-    private TextView mDateOfBirth, mCities;
     private EditText mEmail, mPassword, mFirstName, mLastName, mAddress, mPhone, mRetypedPassword;
     private Button btnRegister, btnBackToLogin;
     private ProgressBar mProgressSpinner;
