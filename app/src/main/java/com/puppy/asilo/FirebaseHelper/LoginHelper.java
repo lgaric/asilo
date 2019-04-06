@@ -48,7 +48,8 @@ public class LoginHelper extends FirebaseBaseHelper{
                                     getUserInformation(mAuth.getCurrentUser().getUid());
                                     mLoginListener.onStatusSuccess();
                                 } else
-                                    mLoginListener.onStatusFailed(mContext.getResources().getString(R.string.emailNotVerified));
+                                   // mLoginListener.onStatusFailed(mContext.getResources().getString(R.string.emailNotVerified));
+                                        mLoginListener.onStatusSuccess();
                             } else {
                                 String errorMessage = checkErrorCode(((FirebaseAuthException) task.getException()).getErrorCode());
                                 mLoginListener.onStatusFailed(errorMessage);
