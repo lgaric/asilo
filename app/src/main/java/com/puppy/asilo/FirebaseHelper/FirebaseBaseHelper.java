@@ -9,6 +9,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.puppy.asilo.R;
 
 public class FirebaseBaseHelper {
@@ -25,6 +27,8 @@ public class FirebaseBaseHelper {
     protected DatabaseReference mReference;
     protected Query mQuery;
     protected Context mContext;
+    protected FirebaseStorage mStorage;
+    protected StorageReference mStorageReference;
 
     /**
      * Konstruktor
@@ -32,6 +36,8 @@ public class FirebaseBaseHelper {
     public FirebaseBaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        mStorage = FirebaseStorage.getInstance();
+        mStorageReference = mStorage.getReference();
     }
 
     /**

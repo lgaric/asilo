@@ -36,7 +36,7 @@
     <string name="emailNotVerified">Please verify your email address first.</string>
     <string name="fillAllFields">Please fill all fields!</string>
     <string name="pleaseInsertEmail">Please, enter your e-mail!</string>
-    <string name="passwordError">Minimum 6 letters and one special character!</string>
+    <string name="passwordError">Minimum 8 characters. Must contain at least one capital letter and one number!</string>
     <string name="retypedPasswordError">Password do not match!</string>
 
     <!-- Common -->

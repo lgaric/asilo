@@ -82,6 +82,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"></View>
 
+            <ImageView
+                android:id="@+id/userImageRegistration"
+                android:layout_width="500px"
+                android:layout_height="500px"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/add_image"/>
+
             <ProgressBar
                 android:id="@+id/progressBarRegistration"
                 style="?android:attr/progressBarStyleLarge"

@@ -1,21 +1,26 @@
 package com.puppy.asilo.FirebaseHelper;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Patterns;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.UploadTask;
 import com.puppy.asilo.FirebaseHelper.Listeners.RegistrationListener;
 import com.puppy.asilo.Model.User;
 import com.puppy.asilo.R;
 
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +41,7 @@ public class RegistrationHelper extends FirebaseBaseHelper{
      * @param mNewUser
      */
 
-    public void registration(User mNewUser){
+    public void registration(User mNewUser, final Uri filePath){
         final User user = mNewUser;
 
         if(isNetworkAvailable()) {
@@ -53,7 +58,8 @@ public class RegistrationHelper extends FirebaseBaseHelper{
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     final String uId = mAuth.getCurrentUser().getUid();
-                                    mDatabase.getReference().child("users").child(uId).setValue(user);
+                                    mDatabase.getReference().child("User").child(uId).setValue(user);
+                                    uploadImage(filePath);
                                     mAuth.getCurrentUser().sendEmailVerification();
                                     mAuth.signOut();
                                     mRegistrationListener.onRegistrationSuccess(mContext.getResources().getString(R.string.registrationSuccess));
@@ -83,12 +89,41 @@ public class RegistrationHelper extends FirebaseBaseHelper{
      * @param mRetypedPassword
      */
 
-    public void registerUser(User mNewUser, String mRetypedPassword) {
+    public void registerUser(User mNewUser, String mRetypedPassword, Uri filePath ) {
         if (InputCorrect(mNewUser, mRetypedPassword)) {
-            registration(mNewUser);
+            registration(mNewUser, filePath);
         }
         else{
             mRegistrationListener.onRegistrationFail(mContext.getResources().getString(R.string.checkInputMessage));
+        }
+    }
+
+    private void uploadImage(Uri filePath) {
+
+        if(filePath != null)
+        {
+            mStorageReference = mStorageReference.child("images/"+ UUID.randomUUID().toString());
+            mStorageReference.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            //Toast.makeText(MainActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            //Toast.makeText(MainActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });/*
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    .getTotalByteCount());
+
+                        }
+                    });*/
         }
     }
 
@@ -121,7 +156,7 @@ public class RegistrationHelper extends FirebaseBaseHelper{
     }
 
     /**
-     * Provjeri valjanost korisnikovog inputa
+     * Provjeri valjanost korisnikovog inputa finalno
      * @param mNewUser
      * @param mRetypedPassword
      * @return
