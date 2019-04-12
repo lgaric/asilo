@@ -19,7 +19,9 @@ import com.puppy.asilo.FirebaseHelper.Listeners.RegistrationListener;
 import com.puppy.asilo.FirebaseHelper.RegistrationHelper;
 import com.puppy.asilo.Model.User;
 import com.puppy.asilo.R;
+import com.soundcloud.android.crop.Crop;
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -28,9 +30,8 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private Button btnRegister, btnBackToLogin;
     private ProgressBar mProgressSpinner;
 
-    //private ImageView mUserImage;
-    private final int PICK_IMAGE_REQUEST = 71;
-    private Uri filePath;
+    private ImageView mUserImage;
+    private Uri sourceUri, destinationUri;
 
     private RegistrationHelper mRegistrationHelper;
 
@@ -56,7 +57,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         mEmail =  findViewById(R.id.emailRegistration);
         mAddress = findViewById(R.id.addressRegistration);
         mPhone = findViewById(R.id.contactRegistration);
-        //mUserImage = findViewById(R.id.userImageRegistration);
+        mUserImage = findViewById(R.id.userImageRegistration);
 
         mProgressSpinner = findViewById(R.id.progressBarRegistration);
         mProgressSpinner.setVisibility(View.GONE);
@@ -164,20 +165,20 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             }
         });
 
-        /*
+
         mUserImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseImage();
             }
         });
-        */
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mProgressSpinner.setVisibility(View.VISIBLE);
-                mRegistrationHelper.registerUser(createUser(), mRetypedPassword.getText().toString().trim(), filePath);
+                mRegistrationHelper.registerUser(createUser(), mRetypedPassword.getText().toString().trim(), destinationUri);
             }
         });
 
@@ -191,31 +192,37 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     }
 
     /**
-     * Allows user to choose his profile picture.
+     * Omogućava biranje fotografije i obrezivanje iste...
+     * Motode "chooseImage, onActivityResult, cropImage" se
+     * moraju prebaciti negdje jer će se često pozivati. <--- <--- !!!
      * */
 
     private void chooseImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        Crop.pickImage(this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null )
-        {
-            filePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                //mUserImage.setImageBitmap(bitmap);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+
+        if(requestCode == Crop.REQUEST_PICK){
+            sourceUri = data.getData();
+            destinationUri = Uri.fromFile(new File(getCacheDir(), "cropped"));
+            Crop.of(sourceUri, destinationUri).asSquare().withAspect(1,1).start(this);
+            mUserImage.setImageURI(Crop.getOutput(data));
+        }
+        else if(requestCode == Crop.REQUEST_CROP){
+            cropImage(requestCode, data);
+            mUserImage.setImageURI(Crop.getOutput(data));
+        }
+    }
+
+    public void cropImage(int code, Intent result){
+        if(code == RESULT_OK){
+            mUserImage.setImageURI(Crop.getOutput(result));
+        }
+        else if(code == Crop.RESULT_ERROR){
+            // handle error
         }
     }
 

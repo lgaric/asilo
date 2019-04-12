@@ -7,9 +7,13 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -37,7 +41,7 @@ public class FirebaseBaseHelper{
     protected Query mQuery;
     protected Context mContext;
     protected static FirebaseStorage mStorage;
-    protected static StorageReference mStorageReference;
+    protected static StorageReference mStorageReference, mimageFilePath;
 
     /**
      * Konstruktor
@@ -45,8 +49,6 @@ public class FirebaseBaseHelper{
     public FirebaseBaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        mStorage = FirebaseStorage.getInstance();
-        mStorageReference = mStorage.getReference();
     }
 
     /**
@@ -69,37 +71,42 @@ public class FirebaseBaseHelper{
         }
     }
     /**
-     * Prijenos fotografija
+     * Ažuriranje fotografije profila
      * */
 
-    public void uploadImage(Uri filePath){
+    public void updateProfileImage(final FirebaseUser currentUser, Uri filePath){
         if(filePath != null)
         {
-            mStorageReference = mStorageReference.child("images/" + UUID.randomUUID().toString());
-            mStorageReference.putFile(filePath);
+            mStorageReference = FirebaseStorage.getInstance().getReference().child("profilePhotos");
+            mimageFilePath = mStorageReference.child(currentUser.getUid());
+            mimageFilePath.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // Image uploaded successfully
+
+                    mimageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                                    .setPhotoUri(uri)
+                                    .build();
+
+                            currentUser.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        // user pic is updated
+                                    }
+                                }
+                            });
+
+                        }
+                    });
+                }
+            });
         }
     }
 
-    /* U RAZVOJU :
-    public void uploadImage(Uri filePath) throws Exception {
 
-        if(filePath != null)
-        {
-            File file = new File(filePath.getPath());
-            long fileSize = file.length();
-
-            if(fileSize/1000000 < 0.5) {
-                mStorageReference = mStorageReference.child("images/" + UUID.randomUUID().toString());
-                try {
-                    mStorageReference.putFile(filePath);
-                } catch (Exception e) {
-                    throw new Exception("Image upload has failed!", e);
-                }
-            }
-            else {
-                throw new java.lang.RuntimeException("File is too large!");
-            }
-        }
-    }*/
 
 }

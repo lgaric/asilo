@@ -40,6 +40,7 @@
             android:name="com.puppy.asilo.Controller.MainActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
 
     </application>

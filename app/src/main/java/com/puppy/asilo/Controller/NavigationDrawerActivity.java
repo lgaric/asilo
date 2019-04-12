@@ -12,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
+import com.puppy.asilo.Core.CurrentUser;
 import com.puppy.asilo.R;
 
 public class NavigationDrawerActivity extends AppCompatActivity

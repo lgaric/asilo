@@ -40,6 +40,9 @@ dependencies {
     //ButterKnife
     //implementation 'com.jakewharton:butterknife:10.1.0'
     //annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    //Image Cropping
+    implementation 'com.soundcloud.android:android-crop:1.0.1@aar'
 }
 
 //Firebase service
