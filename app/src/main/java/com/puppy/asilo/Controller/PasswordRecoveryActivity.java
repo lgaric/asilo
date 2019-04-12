@@ -25,7 +25,6 @@ public class PasswordRecoveryActivity extends AppCompatActivity implements Passw
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.password_recovery_activity);
-        getSupportActionBar().setTitle(R.string.forgotPassword);
 
         mPasswordRecoveryHelper = new PasswordRecoveryHelper(this);
 
