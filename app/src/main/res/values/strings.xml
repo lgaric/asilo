@@ -3,20 +3,10 @@
 
     <!-- Registration -->
     <string name="emailEmpty">Please fill out the E-mail field!</string>
-    <string name="checkInputMessage">Please fill all data correctly!</string>
-    <string name="registrationSuccess">Registration successful. Confirmation email has been sent!</string>
-    <string name="registrationFail">Unexpected error while registering!</string>
-    <string name="emailInUse">Account with that email address already exists. Login?</string>
-    <string name="usernameInUse">Username already exists.</string>
-    <string name="required">Required!</string>
-    <string name="register">Register!</string>
+    <string name="registrationComplete">You have registered successfully!</string>
+    <string name="registrationFailed">Registration failed!</string>
+    <string name="emailInUse">E-mail is already in use!</string>
 
-    <!-- Registration.UserData -->
-    <string name="contact">Contact</string>
-    <string name="address">Address</string>
-    <string name="repeatPassword">Repeat password</string>
-    <string name="firstName">First name</string>
-    <string name="lastName">Last name</string>
 
     <!-- Login -->
     <string name="login">Login</string>
@@ -24,10 +14,6 @@
     <string name="registerOnLogin">No account? Register here!</string>
     <string name="password">Password</string>
     <string name="forgotPassword">Forgot password?</string>
-
-    <!-- Image Upload -->
-    <string name="imageUploadSuccess">Image has been successfully uploaded!</string>
-    <string name="imageUploadFailure">Image upload has failed!</string>
 
     <!-- Error messages -->
     <string name="noInternetConnectionMessage">Check your internet connection.</string>
@@ -40,36 +26,16 @@
     <string name="emailNotVerified">Please verify your email address first.</string>
     <string name="fillAllFields">Please fill all fields!</string>
     <string name="pleaseInsertEmail">Please, enter your e-mail!</string>
-    <string name="passwordError">Minimum 8 characters. Must contain at least one capital letter and one number!</string>
-    <string name="retypedPasswordError">Password do not match!</string>
 
     <!-- Common -->
     <string name="back">Back</string>
     <string name="send">Send</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
 
 
     <string name="pwRecoverySuccess">Password recovery link has been sent. Check your email!</string>
-
+    
     <!-- Exception messages -->
     <string name="fragmentListenerNotImplemented">You must implement the fragment listener!</string>
-    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
-    <!-- android drawer items -->
-    <string name="nove_objave">New post</string>
-    <string name="prethodne_objave">Previous posts</string>
-    <string name="prijavite_gresku">Report a something</string>
-    <string name="donirajte">Donate to shelters</string>
-    <string name="odjava">Log out</string>
-    <string name="donji_dio">_____</string>
-
-    <string name="logOutQuestion">Are you sure?</string>
 
 </resources>

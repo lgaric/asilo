@@ -1,293 +1,131 @@
 package com.puppy.asilo.Controller;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.puppy.asilo.FirebaseHelper.Listeners.RegistrationListener;
-
-import com.puppy.asilo.FirebaseHelper.RegistrationHelper;
 import com.puppy.asilo.Model.User;
 import com.puppy.asilo.R;
-import com.soundcloud.android.crop.Crop;
-
-import java.io.File;
-import java.io.IOException;
-
 
 public class RegistrationActivity extends AppCompatActivity implements RegistrationListener {
-    private EditText mEmail, mPassword, mFirstName, mLastName, mAddress, mPhone, mRetypedPassword;
-    private Button btnRegister, btnBackToLogin;
-    private ProgressBar mProgressSpinner;
 
-    private ImageView mUserImage;
-    private Uri sourceUri, destinationUri;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
-    private RegistrationHelper mRegistrationHelper;
+    public User tempUser = new User();
 
     /**
-     * Inicijalizacija
-     * @param savedInstanceState
-     */
+     * Fragments currentActiveFragment and newActiveFragment
+     * are being used for exchange of fragments inside the
+     * activity.
+     * */
+    private Fragment currentActiveFragment;
+    private Fragment newActiveFragment;
+
+    private Fragment regFragmentOne;
+    private Fragment regFragmentTwo;
+    private Fragment regFragmentThree;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.registration_activity);
 
-        //getSupportActionBar().setTitle(R.string.register); // Ako hoces staviti ActionBar na registraciju!
-
-        mRegistrationHelper = new RegistrationHelper(this);
-
-
-        mFirstName = findViewById(R.id.firstnameRegistration);
-        mLastName = findViewById(R.id.lastnameRegistration);
-        mPassword = findViewById(R.id.passwordRegistration);
-        mRetypedPassword = findViewById(R.id.repeatPasswordRegistration);
-        mEmail =  findViewById(R.id.emailRegistration);
-        mAddress = findViewById(R.id.addressRegistration);
-        mPhone = findViewById(R.id.contactRegistration);
-        mUserImage = findViewById(R.id.userImageRegistration);
-
-        mProgressSpinner = findViewById(R.id.progressBarRegistration);
-        mProgressSpinner.setVisibility(View.GONE);
-
-        btnRegister =  findViewById(R.id.buttonRegister);
-        btnBackToLogin =  findViewById(R.id.buttonBackToLogin);
-
+        fragmentManager=getSupportFragmentManager();
         /**
-         * Listeneri za registracijsku formu.
+         *  changeFragment method is called here to set the inital
+         *  fragment -> RegistrationFragmentOne, otherwise the
+         *  activity would be empty.
          * */
-
-
-        mFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if(mFirstName.getText().toString().trim().length() <= 0){
-                        mFirstName.setError(getResources().getString(R.string.required));
-                    }
-                }
-            }
-        });
-
-        mLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if(mLastName.getText().toString().trim().length() <= 0){
-                        mLastName.setError(getResources().getString(R.string.required));
-                    }
-                }
-            }
-        });
-
-
-        mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if(mEmail.getText().toString().trim().length() > 0){
-                        boolean validationSuccess = mRegistrationHelper.validateEmail(mEmail.getText().toString().trim());
-                        if(!validationSuccess){
-                            mEmail.setError(getResources().getString(R.string.emailError));
-                        }
-                    }
-                    else {
-                        mEmail.setError(getResources().getString(R.string.required));
-                    }
-                }
-            }
-        });
-
-
-        mPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
-                    if (mPassword.getText().toString().trim().length() > 0) {
-                        boolean validationSuccess = mRegistrationHelper.validatePassword(mPassword.getText().toString().trim());
-                        if (!validationSuccess)
-                            mPassword.setError(getResources().getString(R.string.passwordError));
-                    } else {
-                        mPassword.setError(getResources().getString(R.string.required));
-                    }
-                }
-            }
-        });
-
-        mRetypedPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if(mRetypedPassword.getText().toString().trim().length() > 0){
-                        boolean validationSuccess = mRegistrationHelper.validateRetypedPassword(mPassword.getText().toString().trim(), mRetypedPassword.getText().toString().trim());
-                        if(!validationSuccess){
-                            mRetypedPassword.setError(getResources().getString(R.string.retypedPasswordError));
-                        }
-                    }
-                    else{
-                        mRetypedPassword.setError(getResources().getString(R.string.required));
-                    }
-                }
-            }
-        });
-
-        mAddress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if(mAddress.getText().toString().trim().length() <= 0){
-                        mAddress.setError(getResources().getString(R.string.required));
-                    }
-                }
-            }
-        });
-
-        mPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if(mPhone.getText().toString().trim().length() <= 0){
-                        mPhone.setError(getResources().getString(R.string.required));
-                    }
-                }
-            }
-        });
-
-
-        mUserImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseImage();
-            }
-        });
-
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mProgressSpinner.setVisibility(View.VISIBLE);
-                mRegistrationHelper.registerUser(createUser(), mRetypedPassword.getText().toString().trim(), destinationUri);
-            }
-        });
-
-        btnBackToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showLogin();
-            }
-        });
-
+        changeFragment(null);
     }
 
     /**
-     * Omogućava biranje fotografije i obrezivanje iste...
-     * Motode "chooseImage, onActivityResult, cropImage" se
-     * moraju prebaciti negdje jer će se često pozivati. <--- <--- !!!
+     * Method sendDataToRegActivity receives data from the RegistrationFragmentOne.
+     * The received data is an object of a class User. It contains relevant
+     * data gathered in the first part of the registration process (name, phone, etc.).
      * */
-
-    private void chooseImage() {
-        Crop.pickImage(this);
-    }
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void sendDataToRegActivity(User userData) {
+        tempUser = userData;
 
-        if(requestCode == Crop.REQUEST_PICK){
-            sourceUri = data.getData();
-            destinationUri = Uri.fromFile(new File(getCacheDir(), "cropped"));
-            Crop.of(sourceUri, destinationUri).asSquare().withAspect(1,1).start(this);
-            mUserImage.setImageURI(Crop.getOutput(data));
-        }
-        else if(requestCode == Crop.REQUEST_CROP){
-            cropImage(requestCode, data);
-            mUserImage.setImageURI(Crop.getOutput(data));
-        }
-    }
+        Bundle userDataBundle = new Bundle();
+        userDataBundle.putSerializable("USER_DATA", userData);
 
-    public void cropImage(int code, Intent result){
-        if(code == RESULT_OK){
-            mUserImage.setImageURI(Crop.getOutput(result));
-        }
-        else if(code == Crop.RESULT_ERROR){
-            // handle error
-        }
+        changeFragment(userDataBundle);
     }
 
     /**
-     * U slučaju pritiska standard android "Back" gumba
-     * prikaži LoginActivity. Poboljšava UX navigacije.
+     * Method changeFragment changes visible fragment inside the
+     * Registration Activity. It checks the current "active" fragment
+     * and acts accordingly. If there are no active fragments it
+     * initialises the RegistrationFragmentOne.
      * */
 
+    private void changeFragment(Bundle userDataBundle){
+        fragmentTransaction = fragmentManager.beginTransaction();
+        currentActiveFragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
+
+        if(currentActiveFragment instanceof RegistrationFragmentOne){
+            fragmentTransaction.hide(regFragmentOne);
+            regFragmentTwo = new RegistrationFragmentTwo();
+            newActiveFragment = regFragmentTwo;
+            newActiveFragment.setArguments(userDataBundle);
+        }
+        else if(currentActiveFragment instanceof  RegistrationFragmentTwo){
+            fragmentTransaction.hide(regFragmentTwo);
+            regFragmentThree = new RegistrationFragmentThree();
+            newActiveFragment = regFragmentThree;
+            newActiveFragment.setArguments(userDataBundle);
+        }
+        else{
+            regFragmentOne= new RegistrationFragmentOne();
+            newActiveFragment = regFragmentOne;
+        }
+
+        fragmentTransaction.add(R.id.fragmentContainer, newActiveFragment);
+        fragmentTransaction.commit();
+    }
+
+    /**
+     * Method onBackPressed handles the pressing of the android
+     * back button. If the active fragment is RegistrationFragmentOne
+     * user is redirected to the LoginActivity, otherwise
+     * */
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        showLogin();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        currentActiveFragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
+
+        if(currentActiveFragment instanceof RegistrationFragmentOne){
+            startActivity(new Intent(this, LoginActivity.class));
+            this.finish();
+        }
+        else{
+            if(currentActiveFragment instanceof  RegistrationFragmentTwo){
+                fragmentTransaction.show(regFragmentOne);
+            }
+            else if(currentActiveFragment instanceof  RegistrationFragmentThree){
+                fragmentTransaction.show(regFragmentTwo);
+            }
+            fragmentTransaction.remove(currentActiveFragment);
+            fragmentTransaction.commit();
+        }
     }
 
-    /**
-     * Otvori Activity login
-     */
-    public void showLogin(){
-        startActivity(new Intent(this,LoginActivity.class));
+    @Override
+    public void onRegistrationFailed(String mMessage) {
+
+    }
+
+    @Override
+    public void onRegistrationSuccess() {
+        startActivity(new Intent(this, MainActivity.class));
         this.finish();
     }
-
-    /**
-     * Prikazi poruku korisniku
-     * @param mMessage
-     */
-    public void showToastRegistration(String mMessage){
-        Toast.makeText(this, mMessage, Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * Kreiraj novog korisnika
-     * @return
-     */
-    private User createUser(){
-        User newUser = new User();
-        newUser.setmFirstName(mFirstName.getText().toString().trim());
-        newUser.setmLastName(mLastName.getText().toString().trim());
-        newUser.setmPassword(mPassword.getText().toString().trim());
-        newUser.setmEmail(mEmail.getText().toString().trim());
-        newUser.setmAddress(mAddress.getText().toString().trim());
-        newUser.setmPhone(mPhone.getText().toString().trim());
-        // I ostali atributi!
-        return newUser;
-    }
-
-    /**
-     * U slucaju uspjesne registracije prikazi poruku
-     * @param mMessage
-     */
-    @Override
-    public void onRegistrationSuccess(String mMessage) {
-        mProgressSpinner.setVisibility(View.GONE);
-        showLogin();
-        showToastRegistration(mMessage);
-    }
-
-    /**
-     * U slucaju neuspjesne registracije prikazi poruku
-     * @param mMessage
-     */
-    @Override
-    public void onRegistrationFail(String mMessage) {
-        mProgressSpinner.setVisibility(View.GONE);
-        showToastRegistration(mMessage);
-    }
-
 }
