@@ -42,6 +42,7 @@
     <string name="pleaseInsertEmail">Please, enter your e-mail!</string>
     <string name="passwordError">Minimum 8 characters. Must contain at least one capital letter and one number!</string>
     <string name="retypedPasswordError">Password do not match!</string>
+    <string name="errorWhileLoadingAnimals">Unexpected error while loading animals!</string>
 
     <!-- Common -->
     <string name="back">Back</string>
@@ -63,12 +64,16 @@
     <string name="action_settings">Settings</string>
 
     <!-- android drawer items -->
-    <string name="nove_objave">New post</string>
-    <string name="prethodne_objave">Previous posts</string>
-    <string name="prijavite_gresku">Report a something</string>
-    <string name="donirajte">Donate to shelters</string>
-    <string name="odjava">Log out</string>
-    <string name="donji_dio">_____</string>
+    <string name="new_post">New post</string>
+    <string name="previous_posts">Previous posts</string>
+    <string name="Report_bug">Report an error</string>
+    <string name="donate">Donate to shelters</string>
+    <string name="logout">Log out</string>
+    <string name="down">_____</string>
+
+    <!-- titles -->
+    <string name="animals">Animals</string>
+    <string name="newAnimal">Add animal</string>
 
     <string name="logOutQuestion">Are you sure?</string>
 

@@ -1,131 +1,131 @@
 package com.puppy.asilo.Model;
 
 public class Animal {
-    private String mAnimalID;
-    private String mShelterID;
-    private String mAnimalType;
-    private String mName;
-    private String mSex;
-    private String mAge;
-    private String mSize;
-    private String mVaccinesTaken;
-    private String mWeight;
-    private String mCastrated;
-    private String mArrivalDate;
-    private String mAdopted;
-    private String mHasChip;
-    private String mDescription;
+    private String AnimalID;
+    private String Shelter_ID;
+    private String AnimalType;
+    private String Name;
+    private String Sex;
+    private String Age;
+    private String Size;
+    private String VaccinesTaken;
+    private String Weight;
+    private boolean Castrated;
+    private String ArrivalDate;
+    private boolean Adopted;
+    private boolean HasChip;
+    private String Description;
 
 
-    public String getmAnimalID() {
-        return mAnimalID;
+    public String getAnimalID() {
+        return AnimalID;
     }
 
-    public void setmAnimalID(String mAnimalID) {
-        this.mAnimalID = mAnimalID;
+    public void setAnimalID(String animalID) {
+        this.AnimalID = animalID;
     }
 
-    public String getmShelterID() {
-        return mShelterID;
+    public String getShelter_ID() {
+        return Shelter_ID;
     }
 
-    public void setmShelterID(String mShelterID) {
-        this.mShelterID = mShelterID;
+    public void setShelter_ID(String shelter_ID) {
+        this.Shelter_ID = shelter_ID;
     }
 
-    public String getmAnimalType() {
-        return mAnimalType;
+    public String getAnimalType() {
+        return AnimalType;
     }
 
-    public void setmAnimalType(String mAnimalType) {
-        this.mAnimalType = mAnimalType;
+    public void setAnimalType(String animalType) {
+        this.AnimalType = animalType;
     }
 
-    public String getmName() {
-        return mName;
+    public String getName() {
+        return Name;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        this.Name = name;
     }
 
-    public String getmSex() {
-        return mSex;
+    public String getSex() {
+        return Sex;
     }
 
-    public void setmSex(String mSex) {
-        this.mSex = mSex;
+    public void setSex(String sex) {
+        this.Sex = sex;
     }
 
-    public String getmAge() {
-        return mAge;
+    public String getAge() {
+        return Age;
     }
 
-    public void setmAge(String mAge) {
-        this.mAge = mAge;
+    public void setAge(String age) {
+        this.Age = age;
     }
 
-    public String getmSize() {
-        return mSize;
+    public String getSize() {
+        return Size;
     }
 
-    public void setmSize(String mSize) {
-        this.mSize = mSize;
+    public void setSize(String size) {
+        this.Size = size;
     }
 
-    public String getmVaccinesTaken() {
-        return mVaccinesTaken;
+    public String getVaccinesTaken() {
+        return VaccinesTaken;
     }
 
-    public void setmVaccinesTaken(String mVaccinesTaken) {
-        this.mVaccinesTaken = mVaccinesTaken;
+    public void setVaccinesTaken(String vaccinesTaken) {
+        this.VaccinesTaken = vaccinesTaken;
     }
 
-    public String getmWeight() {
-        return mWeight;
+    public String getWeight() {
+        return Weight;
     }
 
-    public void setmWeight(String mWeight) {
-        this.mWeight = mWeight;
+    public void setWeight(String weight) {
+        this.Weight = weight;
     }
 
-    public String getmCastrated() {
-        return mCastrated;
+    public boolean getCastrated() {
+        return Castrated;
     }
 
-    public void setmCastrated(String mCastrated) {
-        this.mCastrated = mCastrated;
+    public void setCastrated(boolean castrated) {
+        this.Castrated = castrated;
     }
 
-    public String getmArrivalDate() {
-        return mArrivalDate;
+    public String getArrivalDate() {
+        return ArrivalDate;
     }
 
-    public void setmArrivalDate(String mArrivalDate) {
-        this.mArrivalDate = mArrivalDate;
+    public void setArrivalDate(String arrivalDate) {
+        this.ArrivalDate = arrivalDate;
     }
 
-    public String getmAdopted() {
-        return mAdopted;
+    public boolean getAdopted() {
+        return Adopted;
     }
 
-    public void setmAdopted(String mAdopted) {
-        this.mAdopted = mAdopted;
+    public void setAdopted(boolean adopted) {
+        this.Adopted = adopted;
     }
 
-    public String getmHasChip() {
-        return mHasChip;
+    public boolean getHasChip() {
+        return HasChip;
     }
 
-    public void setmHasChip(String mHasChip) {
-        this.mHasChip = mHasChip;
+    public void setHasChip(boolean hasChip) {
+        this.HasChip = hasChip;
     }
 
-    public String getmDescription() {
-        return mDescription;
+    public String getDescription() {
+        return Description;
     }
 
-    public void setmDescription(String mDescription) {
-        this.mDescription = mDescription;
+    public void setDescription(String description) {
+        this.Description = description;
     }
 }

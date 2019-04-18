@@ -46,7 +46,6 @@ public class LoginHelper extends FirebaseBaseHelper{
                             if (task.isSuccessful()) {
                                 if (mAuth.getCurrentUser().isEmailVerified()) {
                                     getUserInformation(mAuth.getCurrentUser().getUid());
-                                    mLoginListener.onStatusSuccess();
                                 } else
                                    // mLoginListener.onStatusFailed(mContext.getResources().getString(R.string.emailNotVerified));
                                         mLoginListener.onStatusSuccess();
@@ -111,6 +110,7 @@ public class LoginHelper extends FirebaseBaseHelper{
                     else {
                         CurrentUser.getCurrentUser = temp;
                         CurrentUser.getCurrentUser.setmUserID(dataSnapshot.getKey());
+                        mLoginListener.onStatusSuccess();
                     }
                 }
 

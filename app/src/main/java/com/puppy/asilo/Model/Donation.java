@@ -1,58 +1,58 @@
 package com.puppy.asilo.Model;
 
 public class Donation {
-    private String mDonationID;
-    private String mShelterID;
-    private String mUserID;
-    private String mAmount;
-    private String mDate;
-    private String mComment;
+    private String DonationID;
+    private String Shelter_ID;
+    private String User_ID;
+    private String Amount;
+    private String Date;
+    private String Comment;
 
-    public String getmDonationID() {
-        return mDonationID;
+    public String getDonationID() {
+        return DonationID;
     }
 
-    public void setmDonationID(String mDonationID) {
-        this.mDonationID = mDonationID;
+    public void setDonationID(String donationID) {
+        this.DonationID = donationID;
     }
 
-    public String getmShelterID() {
-        return mShelterID;
+    public String getShelter_ID() {
+        return Shelter_ID;
     }
 
-    public void setmShelterID(String mShelterID) {
-        this.mShelterID = mShelterID;
+    public void setShelter_ID(String shelter_ID) {
+        this.Shelter_ID = shelter_ID;
     }
 
-    public String getmUserID() {
-        return mUserID;
+    public String getUser_ID() {
+        return User_ID;
     }
 
-    public void setmUserID(String mUserID) {
-        this.mUserID = mUserID;
+    public void setUser_ID(String user_ID) {
+        this.User_ID = user_ID;
     }
 
-    public String getmAmount() {
-        return mAmount;
+    public String getAmount() {
+        return Amount;
     }
 
-    public void setmAmount(String mAmount) {
-        this.mAmount = mAmount;
+    public void setAmount(String amount) {
+        this.Amount = amount;
     }
 
-    public String getmDate() {
-        return mDate;
+    public String getDate() {
+        return Date;
     }
 
-    public void setmDate(String mDate) {
-        this.mDate = mDate;
+    public void setDate(String date) {
+        this.Date = date;
     }
 
-    public String getmComment() {
-        return mComment;
+    public String getComment() {
+        return Comment;
     }
 
-    public void setmComment(String mComment) {
-        this.mComment = mComment;
+    public void setComment(String comment) {
+        this.Comment = comment;
     }
 }
